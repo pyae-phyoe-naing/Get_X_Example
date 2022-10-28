@@ -7,7 +7,6 @@ class PostListController extends GetxController {
   Rx<PostListState> postListState = PostListState().obs;
   @override
   void onInit() {
-    // TODO: implement onInit
     super.onInit();
     getAllPosts();
   }
