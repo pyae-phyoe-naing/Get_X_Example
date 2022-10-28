@@ -5,6 +5,13 @@ import 'package:get/get.dart';
 class PostListController extends GetxController {
   PostApiService _postApiService = Get.find();
   Rx<PostListState> postListState = PostListState().obs;
+  @override
+  void onInit() {
+    // TODO: implement onInit
+    super.onInit();
+    getAllPosts();
+  }
+
   void getAllPosts() {
     postListState.value =
         PostListLoading(); // value is can use as getter and setter
