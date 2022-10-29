@@ -2,8 +2,6 @@ import 'package:blog_app/screen/home.dart';
 import 'package:blog_app/screen/setting.dart';
 import 'package:blog_app/screen/upload.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 
 class BottonNavWidget extends StatefulWidget {
   const BottonNavWidget({Key? key}) : super(key: key);
