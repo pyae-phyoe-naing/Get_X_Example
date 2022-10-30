@@ -35,22 +35,24 @@ class _PostDetailState extends State<PostDetail> {
           return const PostDetailShimmer();
         } else if (state is PostDetailSuccess) {
           PostDetailModel post = state.post;
-          return Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Center(
-                  child: Text(post.title ?? ''),
+          return SingleChildScrollView(
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Center(
+                    child: Text(post.title ?? ''),
+                  ),
                 ),
-              ),
-              const Divider(),
-              Center(child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(post.body ?? ''),
-              )),
-              const Divider(),
-              post.photo == null ? const SizedBox() : Image.network('${PostApiService.baseUrl}/${post.photo}',height: 300,)
-            ],
+                const Divider(),
+                Center(child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(post.body ?? ''),
+                )),
+                const Divider(),
+                post.photo == null ? const SizedBox() : Image.network('${PostApiService.baseUrl}/${post.photo}',height: 300,)
+              ],
+            ),
           );
         } else if (state is PostDetailError) {
           return const Center(

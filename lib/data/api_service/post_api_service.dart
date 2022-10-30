@@ -1,3 +1,4 @@
+import 'package:blog_app/data/model/add_post_model.dart';
 import 'package:blog_app/data/model/post_detail_model.dart';
 import 'package:blog_app/data/model/post_list_model.dart';
 import 'package:dio/dio.dart';
@@ -15,5 +16,15 @@ class PostApiService {
     var result = await _dio.get("$baseUrl/post?id=$id");
     List postList = result.data as List;
     return postList.map((post) => PostDetailModel.fromJson(post)).toList();
+  }
+
+  Future<AddPostModel> addPost(
+      {required String title,
+      required String body,
+      required FormData photo}) async {
+    var result =
+        await _dio.post('$baseUrl/post?title=$title&body=$body', data: photo);
+    AddPostModel addPostModel = result.data;
+    return addPostModel;
   }
 }
