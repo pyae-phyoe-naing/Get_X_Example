@@ -7,7 +7,7 @@ class AddPostController extends GetxController {
   final PostApiService _postApiService = Get.find();
   Rx<AddPostState> addPostState = AddPostState().obs;
   
-  void AddPost({required String title,required String body,required D.FormData photo}) {
+  void addPost({required String title,required String body,required D.FormData? photo}) {
     addPostState.value = AddPostLoading();
     _postApiService.addPost(title: title, body: body, photo: photo).then((addPostResponse){
          addPostState.value = AddPostSuccess(addPostResponse);
