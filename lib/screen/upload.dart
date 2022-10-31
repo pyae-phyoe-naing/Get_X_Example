@@ -29,14 +29,22 @@ class _UploadState extends State<Upload> {
       body: Obx(() {
         AddPostState state = _addPostController.addPostState.value;
         if (state is AddPostLoading) {
-          return const Center(child: CircularProgressIndicator());
-        }
-         else if (state is AddPostError) {    
+          return Center(
+              child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                  'Uploading ... ${(_addPostController.percentage * 100).toInt()}'),
+              const Divider(),
+              CircularProgressIndicator(
+                  value: _addPostController.percentage * 100),
+            ],
+          ));
+        } else if (state is AddPostError) {
           return const Center(
             child: Text('Error'),
           );
-        } 
-        else if (state is AddPostSuccess) {
+        } else if (state is AddPostSuccess) {
           return Center(
             child: Text(state.addPostResponse.result ?? ''),
           );
@@ -74,7 +82,8 @@ class _UploadState extends State<Upload> {
               const Divider(),
               IconButton(
                   onPressed: () async {
-                    final XFile? file = await _imagePicker.pickImage(source: ImageSource.gallery);
+                    final XFile? file = await _imagePicker.pickImage(
+                        source: ImageSource.gallery);
                     if (file != null) {
                       setState(() {
                         _image = File(file.path);
@@ -93,14 +102,20 @@ class _UploadState extends State<Upload> {
                     D.MultipartFile? multipartFile;
                     D.FormData? formData;
                     if (_image != null) {
-                      multipartFile = await D.MultipartFile.fromFile(_image!.path,filename: 'image.png');
+                      multipartFile = await D.MultipartFile.fromFile(
+                          _image!.path,
+                          filename: 'image.png');
                     }
                     _key.currentState!.save();
-                    if (_key.currentState != null && _key.currentState!.validate()) {
+                    if (_key.currentState != null &&
+                        _key.currentState!.validate()) {
                       if (multipartFile != null) {
                         formData = D.FormData.fromMap({'photo': multipartFile});
                       }
-                      _addPostController.addPost(title: _title ?? '',body: _body ?? '',photo: formData);
+                      _addPostController.addPost(
+                          title: _title ?? '',
+                          body: _body ?? '',
+                          photo: formData);
                     }
                   },
                   child: const Text('Save Post'))

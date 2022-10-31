@@ -21,9 +21,9 @@ class PostApiService {
   Future<AddPostModel> addPost(
       {required String title,
       required String body,
-      required FormData ?photo}) async {
+      required FormData ?photo,required Function(int,int)addPostProgress}) async {
     var result =
-        await _dio.post('$baseUrl/post?title=$title&body=$body', data: photo);
+        await _dio.post('$baseUrl/post?title=$title&body=$body', data: photo,onSendProgress: addPostProgress);
     AddPostModel addPostModel = AddPostModel.fromJson(result.data);
     return addPostModel;
   }
