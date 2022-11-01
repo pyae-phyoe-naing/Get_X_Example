@@ -11,11 +11,12 @@ class Setting extends StatefulWidget {
 
 class _SettingState extends State<Setting> {
   late bool _darkTheme;
+  late bool _lang;
   @override
   void initState() {
     super.initState();
     _darkTheme = SaveData.getThemeData();
-    print(_darkTheme);
+    _lang = SaveData.getLanguage();
   }
 
   @override
@@ -35,22 +36,42 @@ class _SettingState extends State<Setting> {
               trailing: Switch(
                 value: _darkTheme,
                 onChanged: (bol) {
-
                   if (bol) {
                     setState(() {
                       SaveData.save(key: 'themeData', value: true);
                       SaveData.setThemeData(true);
                       Get.changeTheme(ThemeData.dark());
-                       _darkTheme = true;
+                      _darkTheme = true;
                     });
                   } else {
                     setState(() {
                       SaveData.save(key: 'themeData', value: false);
                       SaveData.setThemeData(false);
                       Get.changeTheme(ThemeData.light());
-                       _darkTheme = false;
+                      _darkTheme = false;
                     });
                   }
+                },
+              )),
+        ),
+        Card(
+          child: ListTile(
+              title: const Text("မြန်မာဘာသာပြောင်းရန်"),
+              trailing: Switch(
+                value: _lang,
+                onChanged: (bol) {
+                  setState(() {
+                    _lang = bol;
+                    if (bol) {
+                      SaveData.save(key: 'lang', value: true);
+                      SaveData.setLanguage(true);
+                      Get.updateLocale(const Locale('en', 'MM'));
+                    } else {
+                      SaveData.save(key: 'lang', value: false);
+                      SaveData.setLanguage(false);
+                      Get.updateLocale(const Locale('en', 'US'));
+                    }
+                  });
                 },
               )),
         )

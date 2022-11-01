@@ -2,7 +2,7 @@ import 'package:blog_app/screen/home.dart';
 import 'package:blog_app/screen/setting.dart';
 import 'package:blog_app/screen/upload.dart';
 import 'package:flutter/material.dart';
-
+import 'package:get/get.dart';
 class BottonNavWidget extends StatefulWidget {
   const BottonNavWidget({Key? key}) : super(key: key);
 
@@ -19,10 +19,10 @@ class _BottonNavWidgetState extends State<BottonNavWidget> {
       body: _body,
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.add), label: 'Upload'),
-          BottomNavigationBarItem(icon: Icon(Icons.settings), label: 'Setting'),
+        items:  [
+          BottomNavigationBarItem(icon: const Icon(Icons.home), label: 'home'.tr),
+          BottomNavigationBarItem(icon: const Icon(Icons.add), label: 'upload'.tr),
+          BottomNavigationBarItem(icon: const Icon(Icons.settings), label: 'setting'.tr),
         ],
         onTap: (index) {
           setState(() {
