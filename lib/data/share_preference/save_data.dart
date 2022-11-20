@@ -1,27 +1,25 @@
+import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SaveData {
-  static late bool _themeData;
-  static late bool _lang;
-  // Theme //
-  static void setThemeData(bool value) {
-    _themeData = value;
+  static const themeKey = 'theme';
+  static const langKey = 'language';
+
+  SharedPreferences sharedPreferences = Get.find();
+
+  Future<bool> setTheme(bool value) async {
+    return sharedPreferences.setBool(themeKey, value);
   }
 
-  static getThemeData() {
-    return _themeData;
-  }
-  // Language //
-  static void setLanguage(bool value) {
-    _lang = value;
+  Future<bool> getTheme() async {
+    return sharedPreferences.getBool(themeKey) ?? false;
   }
 
-  static getLanguage() {
-    return _lang;
+  Future<bool> setLang(bool value) async {
+    return sharedPreferences.setBool(langKey, value);
   }
-  //
-  static void save({required String key, required bool value}) async {
-    SharedPreferences sharePreferences = await SharedPreferences.getInstance();
-    sharePreferences.setBool(key, value);
+
+  Future<bool> getLang() async {
+    return sharedPreferences.getBool(langKey) ?? false;
   }
 }
